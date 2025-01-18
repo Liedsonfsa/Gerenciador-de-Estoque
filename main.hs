@@ -22,5 +22,5 @@ main = do
 -- ghc -c Produto.hs
 -- ghc -c Estoque.hs
 -- ghc -c Menu.hs
--- ghc Main.hs Produto.o Estoque.o Menu.o -o estoque
+-- ghc main.hs Produto.o Estoque.o Menu.o -o estoque
 -- ./estoque
