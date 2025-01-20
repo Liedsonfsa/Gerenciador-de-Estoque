@@ -5,13 +5,17 @@ import Menu
 import Produto
 
 menu :: [Produto] -> IO ()
-menu estoque = do
-    mostrarMenu
-    opcao <- lerInt
-    if opcao == 6 then
-        return ()
-    else do
-        novoEstoque <- executarOpcaoEscolhida estoque opcao
+menu estoque = loop estoque
+  where
+    loop estoque = do
+        mostrarMenu
+        opcao <- readLn :: IO Int
+        if opcao == 6 then
+            return ()
+        else do
+            novoEstoque <- executarOpcaoEscolhida estoque opcao
+            loop novoEstoque 
+
 
 main :: IO ()
 main = do

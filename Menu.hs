@@ -1,7 +1,6 @@
 -- aqui a gente vai deixar o menu e opções
 module Menu (
     mostrarMenu,
-    lerOpcao,
     executarOpcaoEscolhida
 ) where
 
@@ -21,9 +20,8 @@ mostrarMenu = do
     putStrLn "6 - Sair"
 
 -- | lerString vai ler qualquer string informada pelo usuário
-lerString :: String
-lerString = do
-    getLine
+lerString :: IO String
+lerString = getLine
 
 -- | lerInt vai ler um valor inteiro
 lerInt :: IO Int
@@ -40,8 +38,8 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         quantidade <- lerInt
         putStrLn "Digite o preço do produto: "
         precoProduto <- readLn :: IO Double
-        let novoProduto = Produto nomeProduto quantidadeProduto precoProduto
-
+        let novoProduto = Produto nomeProduto quantidade precoProduto
+        let novoEstoque = adicionarProduto estoque novoProduto
         -- implementar a função de adicionar produto
         
         putStrLn "Produto adicionado com sucesso!"
@@ -53,7 +51,9 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         -- implementar a remoção do produto
         
         putStrLn "Produto removido com sucesso!"
-        return novoEstoque
+        -- quando implementar a função, troque o return estoque por return novoEstoque
+        -- return novoEstoque
+        return estoque
     3 -> do
         putStrLn "Digite o nome do produto para consultar: "
         nomeProduto <- lerString
@@ -70,9 +70,12 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         -- implementar a atualização do estoque
 
         putStrLn "Quantidade atualizada com sucesso!"
-        return novoEstoque
+        -- quando implementar a função, troque o return estoque por return novoEstoque
+        -- return novoEstoque
+        return estoque
     5 -> do
         -- implementar a função de imprimir estoque
+        imprimirProdutosNoEstoque estoque
         return estoque
     6 -> do
         putStrLn "Saindo do sistema..."
