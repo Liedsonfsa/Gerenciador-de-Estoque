@@ -2,7 +2,7 @@
 -- funções básicas (não sei se vão ter mais)
 module Estoque (
     adicionarProduto,
-    -- removerProduto,
+    removerProduto,
     procurarProduto,
     formatarProduto,
     atualizarQuantidade,
@@ -52,4 +52,15 @@ atualizarQuantidade estoque nomeProduto novaQuantidade =
                         -- Caso contrário, retorna o produto original, sem alterações.
                         else p) estoque
         -- Caso nenhum produto com o nome fornecido seja encontrado.
+        else error "Produto não encontrado no estoque."
+
+
+-- Remove um produto do estoque
+removerProduto :: [Produto] -> String -> [Produto]
+removerProduto estoque nomeProduto =
+    -- Verifica se existe algum produto com o nome fornecido
+    if any (\p -> nome p == nomeProduto) estoque
+        -- Filtra os produtos, removendo aquele com o nome correspondente
+        then filter (\p -> nome p /= nomeProduto) estoque
+        -- Caso o produto não exista, gera um erro
         else error "Produto não encontrado no estoque."

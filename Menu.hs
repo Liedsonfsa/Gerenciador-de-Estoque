@@ -51,15 +51,13 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         putStrLn "Produto adicionado com sucesso!"
         return novoEstoque
     2 -> do
-        putStrLn "Digite o nome do produto para remover: "
-        nomeProduto <- lerString
+       putStrLn "Digite o nome do produto para remover: "
+       nomeProduto <- lerString
+       let novoEstoque = removerProduto estoque nomeProduto
+       putStrLn "Produto removido com sucesso!"
+       return novoEstoque
+
         
-        -- implementar a remoção do produto
-        
-        putStrLn "Produto removido com sucesso!"
-        -- quando implementar a função, troque o return estoque por return novoEstoque
-        -- return novoEstoque
-        return estoque
     3 -> do
         putStrLn "Digite o nome do produto para consultar: "
         nomeProduto <- lerString
