@@ -5,7 +5,7 @@ module Estoque (
     -- removerProduto,
     procurarProduto,
     formatarProduto,
-    -- atualizarQuantidade,
+    atualizarQuantidade,
     imprimirProdutosNoEstoque
 ) where
 
@@ -36,3 +36,20 @@ imprimirProdutosNoEstoque :: [Produto] -> IO ()
 imprimirProdutosNoEstoque estoque = do
     putStrLn "Estoque Atual:"
     mapM_ (\p -> putStrLn $ "Nome: " ++ nome p ++ ", Quantidade: " ++ show (quantidade p) ++ ", Preço: " ++ show (preco p)) estoque
+
+
+-- Atualiza a quantidade do estoque.
+atualizarQuantidade :: [Produto] -> String -> Int -> [Produto]
+atualizarQuantidade estoque nomeProduto novaQuantidade =
+    -- Verifica se existe algum produto no estoque com o nome fornecido.
+    if any (\p -> nome p == nomeProduto) estoque
+        -- Se o produto for encontrado, utiliza map para atualizar a quantidade.
+        then map (\p -> 
+                    -- Para cada produto p, verifica se o nome do produto corresponde ao fornecido.
+                    if nome p == nomeProduto
+                        -- Se o nome corresponder, retorna o produto com a quantidade atualizada.
+                        then p { quantidade = novaQuantidade }
+                        -- Caso contrário, retorna o produto original, sem alterações.
+                        else p) estoque
+        -- Caso nenhum produto com o nome fornecido seja encontrado.
+        else error "Produto não encontrado no estoque."
