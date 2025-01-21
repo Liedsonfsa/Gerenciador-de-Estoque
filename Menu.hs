@@ -58,7 +58,8 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         putStrLn "Digite o nome do produto para consultar: "
         nomeProduto <- lerString
 
-        -- implementar a busca pelo produto
+        -- Chama a função procurarProduto para exibir o resultado
+        procurarProduto estoque nomeProduto
         
         return estoque
     4 -> do
