@@ -5,8 +5,8 @@ module Menu (
 ) where
 
 import Estoque
-
 import Produto
+import System.IO
 
 -- | mostrarMenu mostra o menu de opções que o usuário pode escolher
 mostrarMenu :: IO ()
@@ -28,6 +28,13 @@ lerInt :: IO Int
 lerInt = do
     readLn :: IO Int
 
+salvarInformacoes :: [Produto] -> IO ()
+salvarInformacoes estoque = do
+    let produtos = unlines [nome p ++ "," ++ show (quantidade p) ++ "," ++ show (preco p) | p <- estoque]
+    writeFile "estoque.txt" produtos
+
+    putStrLn "Produtos salvos"
+
 -- executarOpcaoEscolhida vai executar a opção escolhida pelo usuário
 executarOpcaoEscolhida :: [Produto] -> Int -> IO [Produto]
 executarOpcaoEscolhida estoque opcao = case opcao of 
@@ -40,7 +47,6 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         precoProduto <- readLn :: IO Double
         let novoProduto = Produto nomeProduto quantidade precoProduto
         let novoEstoque = adicionarProduto estoque novoProduto
-        -- implementar a função de adicionar produto
         
         putStrLn "Produto adicionado com sucesso!"
         return novoEstoque
@@ -79,6 +85,7 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         imprimirProdutosNoEstoque estoque
         return estoque
     6 -> do
+        salvarInformacoes estoque
         putStrLn "Saindo do sistema..."
         return estoque
     _ -> do
