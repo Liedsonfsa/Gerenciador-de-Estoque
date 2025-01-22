@@ -1,9 +1,8 @@
--- aqui a gente deixa a definição do tipo produto
 module Produto (
     Produto(..)
 ) where
 
--- não sei se vão ter mais campos no tipo de dado
+-- Definição do tipo Produto
 data Produto = Produto {
     nome :: String,
     quantidade :: Int,

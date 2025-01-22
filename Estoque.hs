@@ -1,5 +1,3 @@
--- aqui a gente deixa as funções do estoque
--- funções básicas (não sei se vão ter mais)
 module Estoque (
     adicionarProduto,
     removerProduto,
@@ -9,10 +7,10 @@ module Estoque (
     imprimirProdutosNoEstoque
 ) where
 
-import Produto
+import Produto ( Produto(nome, preco, quantidade) )
 import Data.List (find)
 
--- Adiciona um produto ao estoque
+-- | Adiciona um produto ao estoque
 adicionarProduto :: [Produto] -> Produto -> [Produto]
 adicionarProduto estoque novoProduto =
     if any (\p -> nome p == nome novoProduto) estoque
@@ -21,14 +19,14 @@ adicionarProduto estoque novoProduto =
                         else p) estoque
         else novoProduto : estoque
 
--- Procura um produto no estoque.
+-- | Procura um produto no estoque.
 procurarProduto :: [Produto] -> String -> IO () -- Assinatura da função
 procurarProduto estoque nomeProduto =
     maybe (putStrLn "Produto não encontrado.") -- Se o resultado da busca for `Nothing`, imprime "Produto não encontrado."
           (\produto -> putStrLn $ "Produto encontrado: " ++ formatarProduto produto) -- Se encontrar o produto, imprime uma mensagem formatada com os detalhes do produto.
           (find (\p -> nome p == nomeProduto) estoque) -- Usa `find` para buscar um produto dentro da lista `estoque`.
 
--- Função auxiliar para formatar um único produto.
+-- | Função auxiliar para formatar um único produto.
 formatarProduto :: Produto -> String
 formatarProduto p = "Nome: " ++ nome p ++ ", Quantidade: " ++ show (quantidade p) ++ ", Preço: " ++ show (preco p)
 
@@ -38,7 +36,7 @@ imprimirProdutosNoEstoque estoque = do
     mapM_ (\p -> putStrLn $ "Nome: " ++ nome p ++ ", Quantidade: " ++ show (quantidade p) ++ ", Preço: " ++ show (preco p)) estoque
 
 
--- Atualiza a quantidade do estoque.
+-- | Atualiza a quantidade do estoque.
 atualizarQuantidade :: [Produto] -> String -> Int -> [Produto]
 atualizarQuantidade estoque nomeProduto novaQuantidade =
     -- Verifica se existe algum produto no estoque com o nome fornecido.
@@ -55,7 +53,7 @@ atualizarQuantidade estoque nomeProduto novaQuantidade =
         else error "Produto não encontrado no estoque."
 
 
--- Remove um produto do estoque
+-- | Remove um produto do estoque
 removerProduto :: [Produto] -> String -> [Produto]
 removerProduto estoque nomeProduto =
     -- Verifica se existe algum produto com o nome fornecido
