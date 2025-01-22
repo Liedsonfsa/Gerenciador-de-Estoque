@@ -1,3 +1,4 @@
+banana,5,6.7
 pera,3,5.0
 manga,12,5.6
 leite,2,3.4

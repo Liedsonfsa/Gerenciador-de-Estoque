@@ -2,7 +2,7 @@ module Produto (
     Produto(..)
 ) where
 
--- Definição do tipo
+-- Definição do tipo Produto
 data Produto = Produto {
     nome :: String,
     quantidade :: Int,

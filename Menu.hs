@@ -49,12 +49,6 @@ lerProdutos arquivo = do
             return []
         else map lerProduto . lines <$> readFile arquivo
 
--- -- | lerProduto lê a linha as informações da linha em que o produto está
--- lerProduto :: String -> Produto
--- lerProduto linha = 
---     let [nome, quantidade, preco] = splitOn "," linha
---     in Produto nome (read quantidade) (read preco)
-
 -- | lerProduto lê a linha as informações da linha em que o produto está usando Data.Text.
 lerProduto :: String -> Produto
 lerProduto linha =
@@ -93,8 +87,6 @@ executarOpcaoEscolhida estoque opcao = case opcao of
     3 -> do
         putStrLn "Digite o nome do produto para consultar: "
         nomeProduto <- lerString
-
-        -- Chama a função procurarProduto para exibir o resultado
         procurarProduto estoque nomeProduto
         
         return estoque
@@ -104,16 +96,14 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         putStrLn "Digite a nova quantidade do produto: "
         novaQuantidade <- lerInt
 
-        -- implementar a atualização do estoque
         let novoEstoque = atualizarQuantidade estoque nomeProduto novaQuantidade
         putStrLn "Quantidade atualizada com sucesso!"
+
         return novoEstoque
     5 -> do
-        -- implementar a função de imprimir estoque
         imprimirProdutosNoEstoque estoque
         return estoque
     6 -> do 
-        -- gravarProdutos estoque
         salvarInformacoes estoque
         putStrLn "Saindo do sistema..."
         return []

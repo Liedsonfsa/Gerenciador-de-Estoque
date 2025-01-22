@@ -6,18 +6,17 @@ import Estoque
 
 import Produto ( Produto )
 
--- | menu representa 
+-- | menu representa o loop do menu
 menu :: [Produto] -> IO ()
 menu estoque = loop estoque
   where
     loop estoque = do
         mostrarMenu
         opcao <- readLn :: IO Int
-        if opcao == 6 then do
-            novoEstoque <- executarOpcaoEscolhida estoque opcao
+        novoEstoque <- executarOpcaoEscolhida estoque opcao
+        if opcao == 6 then
             return ()
         else do
-            novoEstoque <- executarOpcaoEscolhida estoque opcao
             loop novoEstoque 
 
 
@@ -25,10 +24,3 @@ main :: IO ()
 main = do
     estoqueInicial <- lerProdutos "estoque.txt"
     menu estoqueInicial
-
--- aparentemente, vai ser esse rolê todo pra poder rodar
--- ghc -c Produto.hs
--- ghc -c Estoque.hs
--- ghc -c Menu.hs
--- ghc main.hs Produto.o Estoque.o Menu.o -o estoque
--- ./estoque
