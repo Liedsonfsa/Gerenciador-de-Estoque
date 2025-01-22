@@ -1,6 +1,6 @@
 module Main where
 
-import Menu ( mostrarMenu, executarOpcaoEscolhida, lerProdutos )
+import Menu ( mostrarMenu, executarOpcaoEscolhida, lerProdutos, lerInt )
 
 import Estoque
 
@@ -12,7 +12,7 @@ menu estoque = loop estoque
   where
     loop estoque = do
         mostrarMenu
-        opcao <- readLn :: IO Int
+        opcao <- lerInt
         novoEstoque <- executarOpcaoEscolhida estoque opcao
         if opcao == 6 then
             return ()

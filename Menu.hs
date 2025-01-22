@@ -2,7 +2,10 @@ module Menu (
     mostrarMenu,
     executarOpcaoEscolhida,
     lerProduto,
-    lerProdutos
+    lerProdutos,
+    lerInt,
+    lerDouble,
+    lerString
 ) where
 
 import Estoque
@@ -29,15 +32,34 @@ mostrarMenu = do
 
 -- | lerString vai ler qualquer string informada pelo usuário
 lerString :: IO String
-lerString = getLine
+lerString = do
+    input <- getLine
+    if null input
+        then do
+            putStrLn "Entrada inválida. A string não pode estar vazia. Tente novamente."
+            lerString
+        else return input
 
 -- | lerInt vai ler um valor inteiro
 lerInt :: IO Int
-lerInt = readLn :: IO Int
+lerInt = do
+    input <- getLine
+    case reads input :: [(Int, String)] of
+        [(n, "")] -> return n
+        _ -> do
+            putStrLn "Por favor, informe um número inteiro."
+            lerInt
+
 
 -- | lerDouble vai ler um valor double
 lerDouble :: IO Double
-lerDouble = readLn :: IO Double
+lerDouble = do
+    input <- getLine
+    case reads input :: [(Double, String)] of
+        [(n, "")] -> return n
+        _ -> do
+            putStrLn "Por favor, informe somente números."
+            lerDouble
 
 -- | lerProdutos lê os produtos que estão no arquivo estoque.txt
 lerProdutos :: FilePath -> IO [Produto]
