@@ -2,9 +2,7 @@ module Menu (
     mostrarMenu,
     executarOpcaoEscolhida,
     lerProduto,
-    lerProdutos,
-    showProduto,
-    gravarProdutos
+    lerProdutos
 ) where
 
 import Estoque
@@ -16,7 +14,7 @@ import Estoque
 import Produto ( Produto(..) )
 import System.IO ()
 import System.Directory (doesFileExist)
-import Data.Text (splitOn)
+import qualified Data.Text as T
 
 -- | mostrarMenu mostra o menu de opções que o usuário pode escolher
 mostrarMenu :: IO ()
@@ -51,28 +49,22 @@ lerProdutos arquivo = do
             return []
         else map lerProduto . lines <$> readFile arquivo
 
--- | lerProduto lê a linha as informações da linha em que o produto está
+-- -- | lerProduto lê a linha as informações da linha em que o produto está
+-- lerProduto :: String -> Produto
+-- lerProduto linha = 
+--     let [nome, quantidade, preco] = splitOn "," linha
+--     in Produto nome (read quantidade) (read preco)
+
+-- | lerProduto lê a linha as informações da linha em que o produto está usando Data.Text.
 lerProduto :: String -> Produto
-lerProduto linha = 
-    let [nome, quantidade, preco] = words linha
+lerProduto linha =
+    let [nome, quantidade, preco] = map T.unpack $ T.splitOn (T.pack ",") (T.pack linha)
     in Produto nome (read quantidade) (read preco)
 
--- | gravarProdutos salva os produtos que estão no estoque no arquivo estoque.txt
-gravarProdutos :: [Produto] -> IO ()
-gravarProdutos estoque = do
-    -- let conteudo = unlines [showProduto p | p <- produtos]
-
-    let conteudo = unlines [nome p ++ " " ++ show (quantidade p) ++ " " ++ show (preco p) | p <- estoque]
-    writeFile "estoque.txt" conteudo
-
-    putStrLn "aqui"
-
-showProduto :: Produto -> String
-showProduto (Produto nome quantidade preco) = nome ++ " " ++ show quantidade ++ " " ++ show preco
-
+-- | salvarInformacoes
 salvarInformacoes :: [Produto] -> IO ()
 salvarInformacoes estoque = do
-    let produtos = unlines [nome p ++ " " ++ show (quantidade p) ++ " " ++ show (preco p) | p <- estoque]
+    let produtos = unlines [nome p ++ "," ++ show (quantidade p) ++ "," ++ show (preco p) | p <- estoque]
     writeFile "estoque.txt" produtos
 
     putStrLn "Produtos salvos!"
