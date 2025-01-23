@@ -19,7 +19,7 @@ cd Gerenciador-de-Estoque
 
 
 ### Para rodar o programa, faça:
-```haskell
+```bash
 $ ghc -c Produto.hs
 $ ghc -c Estoque.hs
 $ ghc -c Menu.hs

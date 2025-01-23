@@ -30,6 +30,7 @@ procurarProduto estoque nomeProduto =
 formatarProduto :: Produto -> String
 formatarProduto p = "Nome: " ++ nome p ++ ", Quantidade: " ++ show (quantidade p) ++ ", Preço: " ++ show (preco p)
 
+-- Imprime os produtos do estoque
 imprimirProdutosNoEstoque :: [Produto] -> IO ()
 imprimirProdutosNoEstoque estoque = do
     putStrLn "Estoque Atual:"

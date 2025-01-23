@@ -104,6 +104,7 @@ executarOpcaoEscolhida estoque opcao = case opcao of
        putStrLn "Digite o nome do produto para remover: "
        nomeProduto <- lerString
        let novoEstoque = removerProduto estoque nomeProduto
+
        putStrLn "Produto removido com sucesso!"
        return novoEstoque  
     3 -> do
@@ -113,7 +114,7 @@ executarOpcaoEscolhida estoque opcao = case opcao of
         
         return estoque
     4 -> do
-        putStrLn "Digite o nome do produto para atualizar a quantidade: "
+        putStrLn "Digite o nome do produto: "
         nomeProduto <- lerString
         putStrLn "Digite a nova quantidade do produto: "
         novaQuantidade <- lerInt
